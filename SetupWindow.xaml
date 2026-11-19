@@ -1,0 +1,42 @@
+<Window x:Class="WpfTool.SetupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="P4 Annotate Setup" Width="580" MinWidth="440"
+        SizeToContent="Height" ResizeMode="CanResizeWithGrip"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Content="Text _editor executable" Target="{Binding ElementName=EditorPath}"
+               Padding="0,0,0,4" />
+        <TextBox Grid.Row="1" x:Name="EditorPath" MinHeight="26" VerticalContentAlignment="Center" />
+        <Button Grid.Row="1" Grid.Column="1" Content="Browse..." Click="BrowseEditor_Click"
+                AutomationProperties.Name="Browse for text editor" MinWidth="84" Margin="8,0,0,0" />
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,8,0,16">
+            <Button Content="Use _Notepad" Click="UseNotepad_Click" Padding="10,3" Margin="0,0,8,0" />
+            <Button Content="Use _Visual Studio Code" Click="UseVsCode_Click" Padding="10,3" />
+        </StackPanel>
+
+        <Label Grid.Row="3" Content="_P4.exe path" Target="{Binding ElementName=P4Path}" Padding="0,0,0,4" />
+        <TextBox Grid.Row="4" x:Name="P4Path" MinHeight="26" VerticalContentAlignment="Center" />
+        <Button Grid.Row="4" Grid.Column="1" Content="Browse..." Click="BrowseP4_Click"
+                AutomationProperties.Name="Browse for P4.exe" MinWidth="84" Margin="8,0,0,0" />
+
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal"
+                    HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,24,0,0">
+            <Button Content="_Save" Click="Save_Click" IsDefault="True" MinWidth="84" Padding="8,4" />
+            <Button Content="Cancel" IsCancel="True" MinWidth="84" Padding="8,4" Margin="8,0,0,0" />
+        </StackPanel>
+    </Grid>
+</Window>

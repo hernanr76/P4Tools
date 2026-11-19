@@ -12,6 +12,7 @@
                 <MenuItem Name="UiOpen" Header="Open..." Click="UiOpen_Click"></MenuItem>
                 <MenuItem Name="UiGetInfo" Header="Get Info" Click="UiGetInfo_Click"></MenuItem>
                 <Separator></Separator>
+                <MenuItem Header="_Setup..." Click="UiSetup_Click" />
                 <MenuItem Name="UiExit" Header="Exit" Click="UiExit_Click"></MenuItem>
             </MenuItem>
         </Menu>

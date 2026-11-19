@@ -3,5 +3,12 @@
   <Profiles>
     <Profile Name="(Default)" />
   </Profiles>
-  <Settings />
+  <Settings>
+    <Setting Name="EditorPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">%SystemRoot%\System32\notepad.exe</Value>
+    </Setting>
+    <Setting Name="P4Path" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files\Perforce\P4.exe</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

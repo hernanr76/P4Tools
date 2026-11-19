@@ -1,21 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using WpfTool.Properties;
 
 namespace WpfTool.Controllers
 {
     internal class Perforce
     {
-		public string P4exe { get; set; }
-
-        public Perforce() 
-        { 
-            P4exe = "C:\\Program Files\\Perforce\\P4.exe";
-        }
-
         public string GetInfo()
         {
             return ExecuteP4("info");
@@ -23,24 +14,37 @@ namespace WpfTool.Controllers
 
         public string Blame(string filename)
         {
-            return ExecuteP4($" annotate -u {filename}");
+            return ExecuteP4("annotate -u \"" + filename + "\"");
         }
 
         private string ExecuteP4(string arguments)
         {
-            var proc = new Process();
-            proc.StartInfo.FileName = P4exe;
-            proc.StartInfo.Arguments = arguments;
-            proc.StartInfo.UseShellExecute = false;
-            proc.StartInfo.RedirectStandardOutput = true;
-            proc.StartInfo.CreateNoWindow = true;
-            proc.Start();
-            string outPut = proc.StandardOutput.ReadToEnd();
-            proc.WaitForExit();
-            var exitCode = proc.ExitCode;
-            proc.Close();
-            return outPut.Replace(Environment.NewLine, "\n");
-        }
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = Environment.ExpandEnvironmentVariables(Settings.Default.P4Path),
+                Arguments = arguments,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true
+            };
 
+            using (var process = Process.Start(startInfo))
+            {
+                Task<string> readError = process.StandardError.ReadToEndAsync();
+                string output = process.StandardOutput.ReadToEnd();
+                process.WaitForExit();
+                string error = readError.GetAwaiter().GetResult();
+
+                if (process.ExitCode != 0)
+                {
+                    string details = string.IsNullOrWhiteSpace(error) ? output : error;
+                    throw new InvalidOperationException(
+                        "Perforce exited with code " + process.ExitCode + ".\n\n" + details.Trim());
+                }
+
+                return output;
+            }
+        }
     }
 }

@@ -26,5 +26,23 @@ namespace WpfTool.Properties
                 return defaultInstance;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("%SystemRoot%\\System32\\notepad.exe")]
+        public string EditorPath
+        {
+            get { return (string)this["EditorPath"]; }
+            set { this["EditorPath"] = value; }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\Perforce\\P4.exe")]
+        public string P4Path
+        {
+            get { return (string)this["P4Path"]; }
+            set { this["P4Path"] = value; }
+        }
     }
 }
